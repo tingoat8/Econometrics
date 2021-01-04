@@ -1,0 +1,206 @@
+\documentclass[letterpaper,12pt,titlepage,oneside,final]{book}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{amsmath,amsthm,amssymb}
+
+%%Packages for graphs
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage[latin1]{inputenc}
+
+%Package for multi column
+\usepackage{multicol}
+
+%%Pure laziness.
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\cis}{\text{cis}}
+
+
+% TITLE PAGE GUBBINS
+%----------------------------------------------------------------------
+\newcommand{\thetitle}{Problem Set II}%Change title here
+\newcommand{\coursecode}{ECN627}%Change course code here
+\newcommand{\thedate}{\today}%Change the due date here
+
+
+\begin{document}
+% Title Page
+%----------------------------------------------------------------------
+\input{titlepage}
+%----------------------------------------------------------------------
+
+
+% Start Assignment
+%----------------------------------------------------------------------
+
+
+\section*{3.3}
+
+\begin{align*}
+&X_i\sim Bin(400,\Pr) \implies \bar{X}\sim \mathcal{N}(\mu_x,\sigma^2_x)\\
+\end{align*}
+\paragraph{a)}
+\begin{align*}
+\hat{p} = \frac{1}{n}\sum_{i=1}^nX_i = \frac{215}{400} = 0.5375
+\end{align*}
+\paragraph{b)}
+\begin{align*}
+Var[\hat{p}]&=\frac{\hat{p}(1-\hat{p})}{n}
+= \frac{(0.5375)(0.4625)}{400} \approx 0.000621\\
+\\
+SE(\hat{p}) &= \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = \sqrt{\frac{0.5375(0.4625)}{400}}\\
+&\approx 0.0249
+\end{align*}
+\paragraph{c)}
+\begin{align*}
+&H_0: p =0.5 \quad H_1: p\neq 0.5\\
+\\
+t& = \frac{\hat{p}-p_0}{SE(\hat{p})}
+\approx\frac{0.5375-0.5}{0.0249}\approx 1.504\\
+\\
+&\text{P value} =2\Phi(-|t|) \approx 2\Phi(-1.504)\\
+&\text{The two-tailed P value equals 0.1236}\\
+\end{align*}
+\paragraph{d)}
+\begin{align*}
+&H_0: p =0.5 \quad H_1: p> 0.5\\
+\\
+t& = \frac{\hat{p}-p_0}{SE(\hat{p})}
+\approx\frac{0.5375-0.5}{0.0249}\approx 1.504\\
+\\
+&\text{P value} =1 -\Phi(t) \approx \Phi(1.504)\\
+&\text{The one-tailed P value equals 0.0618}\\
+\end{align*}
+\paragraph{e)}
+The result differ because (c) tested under both tails of the normal distribution, whereas (d) tested under the tail of the right side of the normal distribution.
+\paragraph{f)} If the significance level was set at 5\%, then there is no statistically significant difference. 
+
+\section*{3.4}
+\paragraph{a)}
+\begin{align*}
+p& = \hat{p}\pm z_{95\%}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = 0.5375\pm 1.96\sqrt{\frac{0.5375(0.4625)}{400}}\\
+&\approx 0.5375 \pm 0.0489
+\end{align*}
+\paragraph{b)}
+\begin{align*}
+p& = \hat{p}\pm z_{99\%}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = 0.5375\pm 2.575\sqrt{\frac{0.5375(0.4625)}{400}}\\
+&\approx 0.5375 \pm 0.0652
+\end{align*}
+\paragraph{b)}
+The interval is wider in (b) than (a) because the critical value was larger, hence smaller tails under the normal distribution were tested.
+\section*{3.12}
+\begin{align*}
+&n_X = 100\text{ (idd)} \implies \bar{X}\sim \mathcal{N}(\mu_X, \sigma^2_{X}/n_X)\\
+&n_Y = 64\text{ (idd)} \implies \bar{Y}\sim \mathcal{N}(\mu_Y, \sigma^2_{Y}/n_Y)\\
+&\bar{X} - \bar{Y} \sim \mathcal{N}(\mu_X-\mu_y,\sigma^2_{X}/n_X +\sigma^2_{Y}/n_Y))
+\end{align*}
+\paragraph{a)}
+\begin{align*}
+&H_0: \mu_X - \mu_Y = 0 \quad H_1: \mu_X - \mu_Y\neq 0\\
+\\
+\end{align*}
+\begin{align*}
+t& = \frac{\bar{X}-\bar{Y}}{SE(\bar{X}-\bar{Y})} &SE(\bar{X}-\bar{Y})= \sqrt{\frac{s_X^2}{n_X}+\frac{s_Y^2}{n_Y}} = \sqrt{\frac{40000}{100}+\frac{102400}{64}} \\
+&&\approx 44.721\\
+&=\frac{200}{SE(\bar{X}-\bar{Y})}\\
+&\approx 4.472\\
+\\
+\end{align*}
+\begin{align*}
+&\text{P value} =2\Phi(-|t|) \approx 2\Phi(-4.472)\\
+&\text{The two-tailed P value is less than 0.0001}\\
+&\text{We fail to reject }H_0
+\end{align*}
+\paragraph{b)} There is statistically significant evidence that there exists a difference between the average salaries of the men and women at the firm.
+
+\section*{3.16}
+\begin{align*}
+&n= 453\text{ (idd)} \implies \bar{X}\sim \mathcal{N}(\mu_X, \sigma^2_{X}/n)\\
+\end{align*}
+\paragraph{a)}
+\begin{align*}
+\mu_X& = \bar{X}\pm z_{95\%}SE(\bar{X})= 1013\pm 1.96\frac{108}{\sqrt{453}}\\
+&\approx 1013 \pm 8.748
+\end{align*}
+\paragraph{b)}
+\begin{align*}
+&H_0: \bar{X} = 1000 \quad H_1: \bar{X} \neq 1000\\
+\\
+&\text{Significance level} = 1.96
+\end{align*}
+\begin{align*}
+t&=\left| \frac{1013 -1000}{\frac{108}{\sqrt{453}}}\right|\\
+&\approx 2.561
+\end{align*}
+\begin{align*}
+&\text{Since } 2.651 > 1.96, \text{ reject } H_0\\
+&\text{p-value} = 2\Phi(-2.561) \approx 0.0108\\
+\end{align*}
+\paragraph{ci)}
+\begin{align*}
+\mu_Y& = \bar{Y}\pm z_{95\%}SE(\bar{Y})= 1019\pm 1.96\frac{95}{\sqrt{503}}\\
+&\approx 1019 \pm 8.3022
+\end{align*}
+\paragraph{cii)}
+\begin{align*}
+&H_0: \mu_X - \mu_Y = 0 \quad H_1: \mu_X - \mu_Y\neq 0\\
+\\
+\end{align*}
+\begin{align*}
+t& = \frac{\bar{X}-\bar{Y}}{SE(\bar{X}-\bar{Y})} &SE(\bar{X}-\bar{Y})= \sqrt{\frac{s_X^2}{n_X}+\frac{s_Y^2}{n_Y}} = \sqrt{\frac{11664}{453}+\frac{9025}{503}} \\
+&&\approx 6.610 \\
+&=\frac{6}{SE(\bar{X}-\bar{Y})}\\
+&\approx 0.908\\
+\\
+\end{align*}
+\begin{align*}
+&\text{P value} =2\Phi(-|t|) \approx 2\Phi(-0.908)\\
+&\text{The two-tailed P value equals 0.3639}\\
+&\text{We fail to reject }H_0\\
+&\text{Hence, there is no statistical evidence that the prep course helped.}
+\end{align*}
+\paragraph{di)}
+\begin{align*}
+\mu_Z& = \bar{Z}\pm z_{95\%}SE(\bar{Z})= 9\pm 1.96\frac{60}{\sqrt{453}}\\
+&\approx 9\pm 5.525
+\end{align*}
+
+\paragraph{dii)}
+\begin{align*}
+&H_0: \bar{Z} = 0 \quad H_1: \bar{Z} \neq 0\\
+\\
+&\text{Significance level} = 1.96
+\end{align*}
+\begin{align*}
+t&=\left| \frac{9-0}{\frac{60}{\sqrt{453}}}\right|\\
+&\approx 3.193
+\end{align*}
+\begin{align*}
+&\text{Since } 3.193 > 1.96, \text{ reject } H_0\\
+&\text{Hence, there is statistical evidence that there is a difference in the test scores.}
+\end{align*}
+
+
+\section*{4.1}
+\paragraph{a)}
+\begin{align*}
+\widehat{Test Scores} &= 520.4 - 5.82\times 22\\
+&=392.36\\
+\end{align*}
+\paragraph{b)}
+\begin{align*}
+\Delta\widehat{Test Scores} &= -5.82\times 4\\
+&= -23.28
+\end{align*}
+\begin{align*}
+\widehat{Test Scores_{av}} &= 520.4 - 5.82\times 21.4\\
+&=395.852\\
+\end{align*}
+
+\end{document}

@@ -1,0 +1,175 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[fleqn]{amsmath}
+\usepackage{mathtools,amsthm,amssymb,amsfonts}
+\usepackage{changepage}
+\usepackage{spverbatim}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[english]{babel}
+\usepackage{inputenc}
+\usepackage[autostyle=true]{csquotes}
+
+%%Packages for graphs
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+%Package for R Stargazer
+\usepackage{dcolumn}
+
+%%Tables don't float away
+\usepackage{makecell, caption}
+\usepackage{siunitx}
+
+
+%Package for multi column
+\usepackage{multicol}
+
+%%caption
+\usepackage{caption} 
+
+%%Pure laziness.
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\matr}[1]{#1}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\DeclareMathOperator\cis{cis}%cis
+\DeclareMathOperator{\E}{\mathbb{E}}% expected value
+\MakeOuterQuote{"}
+
+
+
+%%Labeling equations
+\newcounter{eqnthing}\setcounter{eqnthing}{0}
+\newcommand\geofflabel[1]{%
+	\refstepcounter{eqnthing}\tag{\theeqnthing}\label{#1}%
+}
+%%
+
+
+
+% TITLE PAGE GUBBINS
+%----------------------------------------------------------------------
+\newcommand{\thetitle}{Project}%Change title here
+\newcommand{\coursecode}{CECN702}%Change course code here
+\newcommand{\thedate}{\today}%Change the due date here
+
+
+\begin{document}
+% Title Page
+%----------------------------------------------------------------------
+\input{titlepage}
+%----------------------------------------------------------------------
+
+
+% Start Assignment
+%----------------------------------------------------------------------
+\doublespacing
+\section{Introduction}
+\label{sec:1}
+
+We estimated the relationship between the change in employment status over a year for a worker and worker's age, sex and race from April 2006 to April 2007. The observations consisted of workers who reported as employed on the April 2006 "Current Population Survey". The workers were subsequently surveyed about their employment status a year later, April 2007.
+
+The employment status of a worker $(EMPLOYMENT_i)$ takes the value of 1 for a worker who was employed during both survey times of April 2006 and April 2007 and 0 when unemployed in April 2007. Of the prescribed dependent regressors, sex $(SEX_i)$ and race $(BLACK_i)$ were binary. The former takes values of 1 if a worker identifies as female and 0 otherwise. The latter regressor takes values of 1 when the worker identifies as black and 0 otherwise. The worker's age $(AGE_i)$ is a continuous regressor. The data set contains 5220 observations.
+
+We hypothesized that a race identification of black should not be associated with a difference in employment status when holding age and sex constant. Since $EMPLOYMENT_i$ is binary the regular OLS regression could yield predictions greater than 1 or less than 0. We estimated our desired relationship using a non-linear probability logit model, thereby restricting our predictions to between 0 and 1.  
+
+Our model predicted that identifying as black decreases the probability that a worker will be employed, when all other regressors are kept equal.
+
+\section{Data and Model}
+\label{sec:2}
+
+The observations used for the model were taken from the "Data for Empirical Exercises" Student Resources companion for Stock and Watson's Introduction to Econometrics, Third Edition. The dataset contained observations from 5220 workers who identified as employed in the April 2006 "Current Population Survey" and their employment status one year later. The dataset also contained addition regressors surveyed in April 2006, namely: age, female, married, race, union status, separate binary regressors for state locations (northeast, southwest, etc), and separate binary regressors for level of education (high school, college, etc), as well as weekly earnings. 
+
+Of interest to us in this survey was the relationship between the change in the employment status of a worker and if the worker identified as black when age and sex kept constant. As such, we discarded any data not required in our regression and only kept data regarding race, age, sex and of course the dependent regressor, employment. Furthermore, since we were interested in workers who identified as black, any identification for race that was not black in the original dataset was regarded as 0 out our dataset. These changes did not change the size of our dataset. 
+
+We set up an indicator function:
+\begin{align*}
+\overbar{EMPLOYMENT}= \beta_0 +  \beta_1 AGE + \beta_2 SEX + \beta_3 BLACK + u \geofflabel{indicator}\\
+\end{align*}
+
+Here \eqref{indicator}, is considered an underlying propensity for the $EMPLOYMENT$ regressor to take the value of 1. We used the logistic distribution to find the probabilities. That is, we estimated a model of the form:
+
+\begin{align*}
+\Pr(EMPLOYMENT_i &= 1 |  AGE_{i},SEX_{i},BLACK_{i}) \\&=\Lambda(\beta_0 +  \beta_1 AGE_{i} + \beta_2 SEX_{i} + \beta_3 BLACK_{i}) \geofflabel{logit}\\
+\text{Where } \Lambda(z) &= \frac{1}{1 + e ^{-z}}
+\\\end{align*}
+
+Our method to estimate this model was to choose $\hat{\beta_0}$, $\hat{\beta_1}$, $\hat{\beta_2}$, $\hat{\beta_3}$ such that the log-likelihood function \eqref{llhood} is maximized. The estimation was solved using statistical package R.
+
+\begin{align*}
+\ln L = \sum_{i = 1}^{5220} \ln[\Pr(EMPLOYMENT_i &= y_i |  AGE_{i},SEX_{i},BLACK_{i})] \geofflabel{llhood}\\
+\end{align*}
+
+In general, the coefficients of a logit regression cannot be interpreted in the same way they are in an OLS regression. We were interested in the marginal effect that an identification of black would have on employment; i.e., how much the conditional probability of the employment value changes when the value of race changes when we holding all other regressors constant.  
+
+To find this marginal effect, we noted that the race regressor is and binary set up the following discrete change function:
+\begin{align*}
+\Delta = &\Lambda\left(\hat{\beta_0} +  \hat{\beta_1} AGE_{i} + \hat{\beta_2} SEX_{i} + \hat{\beta_3} BLACK_{i}\right | BLACK_i =1 )\\ &- \Lambda\left(\hat{\beta_0} +  \hat{\beta_1} AGE_{i} + \hat{\beta_2} SEX_{i} + \hat{\beta_3} BLACK_{i}\right | BLACK_i =0 ) \geofflabel{meffects}\\
+\end{align*}
+
+Finally, we tested the hypothesis in the usual way,
+\begin{align*}
+&H_0: \beta_3 = 0\\
+&T= \frac{\hat{\beta_3} - \beta_3}{SE(\hat{\beta_3)}} \geofflabel{hyp}\\
+\text{at a significance of }5\% 
+\end{align*}
+
+
+\section{Results}
+\label{sec:3}
+
+We can see from our results in Table \ref{tab:reg}, that our estimated logit model is:
+\begin{align*}
+\widehat{\Pr}(EMPLOYMENT_i &= 1 |  AGE_{i},SEX_{i},BLACK_{i}) \\&=\Lambda(1.798 +  0.015 AGE_{i} -0.441 SEX_{i} -0.186 BLACK_{i}) \geofflabel{elogit}\\
+\end{align*}
+
+Furthermore, our estimated marginal effects function is 
+\begin{align*}
+\widehat{\Delta} = &\Lambda \left(1.798 +  0.015 AGE_{i} -0.441 SEX_{i} -0.186 \right)\\&- \Lambda\left( 1.798 +  0.015 AGE_{i} -0.441 SEX_{i} \right) \geofflabel{emeffects}\\
+\end{align*}
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Sat, Dec 15, 2018 - 6:53:46 PM
+% Requires LaTeX packages: dcolumn 
+\begin{table}[hbt!] \centering 
+	\caption{The Maximum likelihood estimates of age, sex and black and constant as computed by R as well as their respective standard errors.} 
+	\label{tab:reg} 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} } 
+	\\[-1.8ex]\hline 
+	\hline \\[-1.8ex] 
+	& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+	\cline{2-2} 
+	\\[-1.8ex] & \multicolumn{1}{c}{employed} \\ 
+	\hline \\[-1.8ex] 
+	Age & 0.015^{***} \\ 
+	& (0.004) \\ 
+	Sex & -0.441^{***} \\ 
+	& (0.093) \\ 
+	Black & -0.186 \\ 
+	& (0.161) \\ 
+	Constant & 1.798^{***} \\ 
+	& (0.176) \\ 
+	\hline \\[-1.8ex] 
+	Observations & \multicolumn{1}{c}{5,220} \\ 
+	\hline 
+	\hline \\[-1.8ex] 
+	\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}  
+
+We noticed that the p-value for the coefficient of the Black regressor was greater than $0.05$, hence we could not reject $H_0$ from \eqref{hyp}.
+
+
+Our model states that a black female worker with a mean age of $42$ will have a probability of being employed $0.8582715$, where as a non black female worker with the same mean age will have a probability of being employed $0.8794511 $. Using our estimated marginal effects function \eqref{llhood}, we find that the marginal effect is $ -0.1862355 $ for a female worker. Our model predicts that a black male worker with a mean age will be employed with a probability of $ 0.9039293 $, whereas a non black, male worker with the same mean age will be employed with a probability of $ 0.9189304 $. Here, the marginal effect is $-0.1862355$ for a male worker. Hence, we conclude that there is an effect of identifying as black on the probability of employment when holding other variables constant.
+
+
+
+
+\end{document}

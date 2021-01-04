@@ -1,0 +1,169 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{changepage}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[autostyle=true]{csquotes}
+
+%%Packages for math
+\usepackage{mathtools,amsthm,amssymb,amsfonts}
+
+%%Packages for graphs
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+
+%%Packages for code
+\usepackage{spverbatim}
+
+
+%%Pure laziness.
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\matr}[1]{#1}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\DeclareMathOperator\cis{cis}%cis
+\DeclareMathOperator{\E}{\mathbb{E}}% expected value
+\MakeOuterQuote{"}
+
+
+
+% TITLE PAGE GUBBINS
+%----------------------------------------------------------------------
+\newcommand{\thetitle}{Assignment 4}%Change title here
+\newcommand{\coursecode}{CECN702}%Change course code here
+\newcommand{\thedate}{\today}%Change the due date here
+
+
+\begin{document}
+% Title Page
+%----------------------------------------------------------------------
+\input{titlepage}
+%----------------------------------------------------------------------
+
+
+% Start Assignment
+%----------------------------------------------------------------------
+\doublespacing
+\section*{1}
+\label{sec:1.1}
+
+
+\begin{singlespace}
+	\begin{spverbatim}
+		> data <- read.csv("CRSP.csv", header = TRUE)
+		> attach(data)
+		> y <- acf(ExReturn, plot = FALSE)
+		
+		> y$acf[2:13]
+		[1]  0.052002799 -0.048954063  0.004106913 -0.016362529  0.089864263 -0.049824430
+		[7] -0.035829748 -0.064345437  0.013477192  0.015854456 -0.007585337  0.034117700
+	\end{spverbatim}
+\end{singlespace}
+
+Since the first autocorrelation is with itself, we discard it, and take values autocorrelation object outputs 2 to 13.
+
+\section*{2}
+
+Suppose our model is 
+\begin{singlespace}
+\begin{align*}
+\text{ExReturn}_{t} = \alpha + \beta \text{ExReturn}_{t-1} + U_{t}
+\end{align*}
+
+	\begin{spverbatim}
+		> T <- length(ExReturn)
+		> ExReturnlag <- ExReturn[1:(T-1)]
+		> ExReturn <- ExReturn[2:T]
+		> AR <- lm(ExReturn~ExReturnlag)
+		> coef(summary(AR))
+		(Intercept) ExReturnlag 
+		0.3258526   0.0521232 
+	\end{spverbatim}
+\end{singlespace}
+
+So our estimated model is
+\begin{singlespace}
+\begin{align*}
+\text{ExReturn}_{t} = 0.3258526 + 0.0521232\times \text{ExReturn}_{t-1}
+\end{align*}
+\end{singlespace}
+\section*{3}
+Suppose our model is 
+
+\begin{singlespace}
+\begin{align*}
+\text{ExReturn}_{t} = \alpha + \beta \text{ExReturn}_{t-1} + \gamma \text{ExReturn}_{t-1} + U_{t}
+\end{align*}
+
+	\begin{spverbatim}
+		> DivYieldlag <- DivYield[1:(T-1)]
+		> DivYield <- DivYield[2:T]
+		> DivYieldDiff <- DivYield - DivYieldlag
+		> ARDL <- lm(ExReturn ~ ExReturnlag+ DivYieldlag)
+		> coef(ARDL)
+		(Intercept) ExReturnlag DivYieldlag 
+		3.90933002  0.05681810  0.01036858 
+	\end{spverbatim}
+\end{singlespace}
+
+So our estimated model is
+\begin{singlespace}
+\begin{align*}
+\text{ExReturn}_{t} = 3.90933002 + 0.05681810\times \text{ExReturn}_{t-1} +  0.01036858\times \text{ExReturn}_{t-1}
+\end{align*}
+\end{singlespace}
+
+\section*{4}
+
+Consider our previous AR(1) model, we text ExReturn for a unit root using the nonaugmented Dickey-Fuller test statistic. Ie, $\beta = 1$.
+
+We can rewrite the above as 
+
+\begin{singlespace}
+\begin{align*}
+\Delta \text{ExReturn}_{t} =  \alpha + \delta\text{ExReturn}_{t-1} + U_{t}
+\end{align*}
+\end{singlespace}
+
+
+And test, 
+
+\begin{singlespace}
+\begin{align*}
+\text{H}_0:\delta&= 0\\
+	\text{H}_1:\delta&< 0
+\end{align*}
+
+
+	\begin{spverbatim}
+		> ExReturnDiff <- ExReturn - ExReturnlag
+		> DF <- lm(ExReturnDiff ~ ExReturnlag)
+		> coef(summary(DF))["ExReturnlag", c("t value","Pr(>|t|)")]
+		      t value      Pr(>|t|) 
+		-2.153557e+01  9.324383e-74 
+	\end{spverbatim}
+\end{singlespace}
+
+We observe that $\tau << -2.86 $ with an included constant, so we reject $\text{H}_0$
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

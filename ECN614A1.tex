@@ -1,0 +1,63 @@
+\documentclass[letterpaper,12pt,titlepage,oneside,final]{article}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{amsthm, amsmath, amsfonts, mathtools, amssymb} % Math packages 
+
+% Game theory packages
+\usepackage{sgame, tikz} 
+\usepackage{multirow,array}
+
+%%Packages for graphs
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage[latin1]{inputenc}
+
+%Package for multi column
+\usepackage{multicol}
+
+%%Pure laziness.
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\GN}{\mathcal{N}}
+
+% TITLE PAGE GUBBINS
+%----------------------------------------------------------------------
+\newcommand{\thetitle}{Assignment 1}%Change title here
+\newcommand{\coursecode}{MTH614}%Change course code here
+\newcommand{\thedate}{\today}%Change the due date here
+
+
+\begin{document}
+% Title Page
+%----------------------------------------------------------------------
+\input{titlepage}
+%----------------------------------------------------------------------
+
+
+% Start Assignment
+%----------------------------------------------------------------------
+
+
+\section*{Problem 1}
+\begin{align*}
+S_1 &=  \{L, M,  R \}\quad S_2 = \{l,r\} \times \{l^*, r^*\} = \{ll^*, lr^*, rl^*, rr^* \}\\
+&\text{Hence, } S = S_1 \times S_2 = \{(L,ll^*), (L,lr^*), (L,rl^*), (L,rr^*), (M,ll^*), (M,lr^*),(M, rl^*), (M,rr^*),\\
+&(R,ll^*), (R,lr^*),(R, rl^*), (R,rr^*)  \}
+\end{align*}
+\begin{center}
+	\setlength{\extrarowheight}{2pt}
+	\begin{tabular}{*{4}{c|}}
+		\multicolumn{2}{c}{} & \multicolumn{2}{c}{Player 2}\\\cline{3-4}
+		\multicolumn{1}{c}{} &  & $A$  & $B$ & $A$ & $A$ & $A$ \\\cline{2-4}
+		\multirow{3}*{Player 1}  & $L$ & $(x,y)$ & $(x,y)$ & $(x,y)$ & $(x,y)$ \\\cline{2-4}
+		& $M$ & $(x,y)$ & $(x,y)$ & $(x,y)$ & $(x,y)$ \\\cline{2-4}
+		& $R$ & $(x,y)$ & $(x,y)$ & $(x,y)$ & $(x,y)$ \\\cline{2-4}
+	\end{tabular}
+\end{center}
+
+\end{document}

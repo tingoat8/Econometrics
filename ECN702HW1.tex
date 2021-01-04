@@ -1,0 +1,135 @@
+\documentclass[letterpaper,12pt,titlepage,oneside,final]{book}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{amsmath,amsthm,amssymb}
+
+%%Packages for graphs
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage[latin1]{inputenc}
+
+%Package for multi column
+\usepackage{multicol}
+
+%%Pure laziness.
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\cis}{\text{cis}}
+\newcommand{\matr}[1]{\mathbf{#1}} % undergraduate algebra version
+
+
+% TITLE PAGE GUBBINS
+%----------------------------------------------------------------------
+\newcommand{\thetitle}{Homework 2}%Change title here
+\newcommand{\coursecode}{ECN702}%Change course code here
+\newcommand{\thedate}{\today}%Change the due date here
+
+
+\begin{document}
+% Title Page
+%----------------------------------------------------------------------
+\input{titlepage}
+%----------------------------------------------------------------------
+
+
+% Start Assignment
+%----------------------------------------------------------------------
+
+
+\section*{1.i}
+\begin{align*}
+\matr{X} &= \begin{bmatrix}
+    1 & x_{1} \\
+    1 & x_{2} \\
+    \vdots & \vdots  \\
+    1  & x_{n} 
+\end{bmatrix} \quad 
+\vec{Y} = \begin{bmatrix}
+	y_1 \\
+	\vdots\\
+	y_n \end{bmatrix} \quad
+\vec{\epsilon} = \begin{bmatrix}
+	\epsilon_1\\
+	\vdots\\
+	\epsilon_n 
+\end{bmatrix}\quad 
+\matr{\beta} = \begin{bmatrix} 
+	b_0\\
+	b_1
+\end{bmatrix}\\
+\vec{Y} &= \matr{X}\beta + \vec{\epsilon} \\
+\end{align*}
+Let $\vec{x_i} = [1, x_i]$ \\
+So, $\epsilon_i = y_i - \beta x_i.$ \\
+\\
+Let $\matr{\hat{b}}$ denote the estimates of $\beta$ such that it minimizes the sum of squared residuals $\matr{\hat{\epsilon}}$.\\
+
+\begin{align*}
+\hat{\epsilon}^T \hat{\epsilon} 
+&= 
+(\vec{Y}-\matr{X}\matr{\hat{b}})^T (\vec{Y}-\matr{X}\matr{\hat{b}})\\
+&=\vec{Y}^T \vec{Y} - 2\vec{Y}^T \matr{X}\hat{\matr{b}} + \hat{\matr{b}}^T \matr{X}^T \matr{X} \hat{\matr{b}}
+\end{align*}
+The necessary condition for a minimum is
+\begin{align*}
+ \frac{\partial}{\partial\hat{\matr{b}}}&\left(\vec{Y}^T \vec{Y} - 2\vec{Y}^T \matr{X}\hat{\matr{b}} + \hat{\matr{b}}^T \matr{X}^T \matr{X} \hat{\matr{b}}\right)\\
+&= -2\matr{X}^T\vec{Y} + 2\matr{X}^T\matr{X}\hat{\matr{b}} =0\\
+\end{align*}
+If an inverse matrix exists, then $\hat{\matr{b}}$ satisfies the given least squares equation. 
+\begin{align*}
+\matr{X}^T\matr{X}\hat{\matr{b}} &= \matr{X}^T \vec{Y}\\
+(\matr{X}^T\matr{X})^{-1}\matr{X}^T\matr{X}\hat{\matr{b}} &= (\matr{X}^T\matr{X})^{-1}\matr{X}^T \vec{Y}\\
+\hat{\matr{b}}&=(\matr{X}^T\matr{X})^{-1}\matr{X}^T \vec{Y} \quad (*)
+\end{align*}
+
+\cleardoublepage
+
+\section*{1.ii}
+\begin{align*}
+\hat{\epsilon} &= \vec{Y} - \matr{X}\matr{\hat{b}}\quad \text{By substitution of } (*)\\
+&=\vec{Y} - \matr{X}\left( (\matr{X}^T\matr{X})^{-1}\matr{X}^T \vec{Y} \right)\\
+&= \left(\matr{I} - \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T  \right)\vec{Y}\quad (**)\\
+\\
+\hat{Y} &= \vec{Y} - \hat{e}\\
+&=\vec{Y} - \left(\matr{I} - \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T  \right)\vec{Y} \quad \text{By substitution of } (**)\\
+& = \left( \matr{I} - \left(\matr{I} - \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T  \right) \right) \vec{Y}\\
+& =\left( \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T \right)\vec{Y}\\
+\\
+\vec{Y} &= \hat{Y} + \hat{\epsilon}\\
+&= \left( \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T \right)\vec{Y} + \left(\matr{I} - \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T  \right)\vec{Y}\\
+\\
+\end{align*}
+\begin{align*}
+\text{If, }\left( \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T \right)\left(\matr{I} - \matr{X} (\matr{X}^T\matr{X})^{-1}\matr{X}^T  \right)^T = 0
+\end{align*}
+I give up...
+\cleardoublepage
+
+
+
+\section*{1.ii}
+\begin{center}
+\begin{tabular}{c c c c c c} 
+$\widehat{y_i}$ & $= 1.4$ & $+ 2.7x_{i}$\\
+ & $(0.8)$ & $(1.1)$ \\
+\end{tabular}
+\end{center}
+
+\begin{align*}
+t^{act} &= \frac{2.7 - 0}{1.1}\\
+&\approx 2.45 \\
+|t^{act}|&> 1.96\\
+\end{align*}
+
+\section*{3.a}
+True. Correlation between regressors and error terms means that the OLS estimator is inconsistent.  
+\section*{3.a}
+True. Potential threats to external validity arise from differences between the population and setting studied and the population and setting of interest.
+
+
+\end{document}

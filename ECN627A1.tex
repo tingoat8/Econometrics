@@ -1,0 +1,323 @@
+%Jennifer Pan, August 2011
+
+\documentclass[10pt,letter]{article}
+	% basic article document class
+	% use percent signs to make comments to yourself -- they will not show up.
+
+\usepackage{amsmath,amsthm,amssymb}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+\usepackage{fullpage}
+
+\begin{document}
+\title{ECN627 Assignment 1}
+\author{Saumitra Mazumder \\500720916}
+\date{25 September, 2017}
+\maketitle 
+
+
+\section*{Problem 2.6}
+\paragraph{a)}
+
+
+\begin{align*}
+E [Y] &= \sum_{i} y_i \Pr_i(Y=y_i)\\
+&= 0\times 0.068 + 1 \times 0.932\\
+&= 0.932\\
+\end{align*}
+
+
+\paragraph{b)}
+\begin{align*}
+E [\overline{Y}] &= \sum_{i} y_i (1-\Pr_i(Y=y_i))\\
+&= 0\times (1- 0.068) + 1 \times (1-0.932)\\
+&= 0.068\\
+&= 1 - E [Y]\\  
+\end{align*}
+
+\paragraph{c)} 
+\begin{align*}
+E[Y|X=1] &= \sum_{i} y_i \Pr(Y=y_i|X=1)\\
+&= 0\times Pr(Y=0|X=1) + 1\times \Pr(Y=1|X=1)\\
+&= 0\times \frac{\Pr(Y = 0 \cap X=1)}{\Pr(X = 1)} + 1\times \frac{\Pr(Y = 1 \cap X=1)}{\Pr(X = 1)}\\ 
+&= 0\times \frac{0.015}{0.361} + 1\times \frac{0.346}{0.361}\\
+&\approx 0.958\\
+\\
+E[Y|X=0] &= \sum_{i} y_i \Pr(Y=y_i|X=0)\\
+&= 0\times \Pr(Y=0|X=0) + 1\times \Pr(Y=1|X=0)\\
+&= 0\times \frac{\Pr(Y = 0 \cap X=0)}{\Pr(X = 0)} + 1\times \frac{\Pr(Y = 1 \cap X=0)}{\Pr(X = 0)}\\ 
+&= 0\times \frac{0.053}{0.639} + 1\times \frac{0.586}{0.639}\\
+&\approx 0.917
+\end{align*}
+
+\paragraph{d)}
+\begin{align*}
+\Pr(Y = 0 \cap X=1)
+&= 0.015
+\\
+\Pr(Y = 0 \cap X=0)
+&= 0.053
+\end{align*}
+
+\paragraph{e)}
+\begin{align*}
+\Pr(Y=0|X=1) &=  \frac{\Pr(Y = 0 \cap X=1)}{\Pr(X = 1)} \\
+&=\frac{0.015}{0.361}\\
+&\approx 0.041\\
+\\
+\Pr(Y=0|X=0) &=  \frac{\Pr(Y = 0 \cap X=0)}{\Pr(X = 0)} \\
+&=\frac{0.053}{0.639}\\
+&\approx 0.083\\
+\end{align*}
+\pagebreak
+
+\paragraph{f)}
+\begin{center}
+\[
+\begin{matrix}
+\Pr_{Y}(Y= 0)=0.068 & \Pr(Y=0|X=0)\approx0.083 & \Pr(Y=0|X=1)\approx0.042 \\
+\Pr_{Y}(Y= 1)=0.932 & \Pr(Y=1|X=0)\approx0.917 & \Pr(Y=1|X=1)\approx0.984
+\end{matrix}
+\]
+
+\[
+\begin{matrix}
+\Pr_{X}(X=0)=0.639 & \Pr(X=0|Y=0)\approx0.779 & \Pr(X=0|Y=1)\approx0.629 \\
+\Pr_{X}(X=1)=0.361 & \Pr(X=1|Y=0)\approx0.221 & \Pr(X=1|Y=1)\approx0.371
+\end{matrix}
+\]
+
+Since $\Pr_{X|Y}(X|Y) \neq \Pr_{X}(x), \Pr_{X}(x)>0$
+and  $\Pr_{Y|X}(Y|X) \neq \Pr_{Y}(y), \Pr_{Y}(y)>0$  $\forall$ x and y, employment status and educational achievement NOT independent.
+\end{center}
+
+
+\section*{Problem 2.8}
+\begin{align*}
+\mu_Y &= 1\\
+\sigma_{y}^{2} &= 4\\
+Z &= \frac{1}{2}(Y-1)\\
+&= \frac{1}{2}(Y) - \frac{1}{2}\\
+\end{align*}
+\begin{center}
+Hence, 
+\end{center}
+\begin{align*}
+E[Z] &= \frac{1}{2}\mu_Y - \frac{1}{2}\\
+&= \frac{1}{2}(1) - \frac{1}{2}\\
+&=0\\
+\end{align*}
+\begin{center}
+and, 
+\end{center}
+\begin{align*}
+Var[Z]&=\left(\frac{1}{2}\right)^{2}Var[Y]\\
+&=\frac{1}{4}(4)\\
+&=1
+\end{align*}
+
+
+
+
+\section*{Problem 2.10}
+
+\paragraph{(a)}
+\begin{align*}
+Y\sim \mathcal{N}(1,4)\\
+\Pr(Y\leq y) &= \Pr\left(Z\leq \frac{y-\mu_Y}{\sigma_{Y}} \right)\\
+\Pr(Y\leq 3) &= \Pr\left(Z\leq \frac{3-1}{2} \right)\\
+&= \Pr\left(Z\leq 1 \right)\\
+&=\Phi(1)\\
+&= 0.84134\\
+\end{align*}
+
+\paragraph{(b)}
+\begin{align*}
+Y\sim \mathcal{N}(3,9)\\
+\Pr(Y> y) &= 1 -\Pr\left(Z\leq \frac{y-\mu_Y}{\sigma_{Y}} \right)\\
+\Pr(Y > 0) &= 1- \Pr\left(Z\leq \frac{0-3}{3} \right)\\
+&= 1- \Pr\left(Z\leq -1 \right)\\
+&= 1- \Pr\left(Z > 1 \right)\\
+&= 1- \left(1 - \Pr\left(Z\leq 1 \right) \right)\\
+&=\Pr\left(Z\leq 1 \right)\\
+&=\Phi(1)\\
+&= 0.84134\\
+\end{align*}
+
+\paragraph{(c)}
+\begin{align*}
+Y\sim \mathcal{N}(50,25)\\
+\Pr(y_1\leq Y\leq y_2) &= \Pr\left(\frac{y_1-\mu_Y}{\sigma_{Y}} \leq Z\leq \frac{y_2-\mu_Y}{\sigma_{Y}} \right)\\
+\Pr(40\leq Y\leq 52) &= \Pr\left(\frac{40-50}{5} \leq Z\leq \frac{52-50}{5} \right)\\
+&= \Pr\left(-2 \leq Z\leq 0.4 \right)\\
+&=\Pr\left(Z\leq 0.4 \right)-\Pr\left(Z\leq -2 \right)\\
+&=\Pr\left(Z\leq 0.4 \right)-\Pr\left(Z\geq 2 \right)\\
+&=\Pr\left(Z\leq 0.4 \right)-\left(1-\Pr\left(Z\leq 2 \right)\right)\\
+&=\Pr\left(Z\leq 0.4 \right)+\left(Z\leq 2 \right) -1\\
+&=\Phi(0.4)+\Phi(2)-1\\
+&= 0.65542+ 0.97725 -1\\
+&=0.63267\\
+\end{align*}
+
+\paragraph{(d)}
+\begin{align*}
+Y\sim \mathcal{N}(5,2)\\
+\Pr(6\leq Y\leq 8) &= \Pr\left(\frac{6-5}{\sqrt{2}} \leq Z\leq \frac{8-5}{\sqrt{2}} \right)\\
+&= \Pr\left(\frac{1}{\sqrt{2}} \leq Z\leq \frac{3}{\sqrt{2}} \right)\\
+&=\Pr\left(Z\leq \frac{3}{\sqrt{2}} \right)-\Pr\left(Z\leq \frac{1}{\sqrt{2}} \right)\\
+&=\Phi \left(\frac{3}{\sqrt{2}}\right)+\Phi\left(\frac{1}{\sqrt{2}}\right)\\
+&\approx 0.98300 - 0.76115\\
+&\approx 0.22185\\
+\end{align*}
+
+
+\section*{Problem 2.11}
+\paragraph{(a)}
+\begin{align*}
+Y \sim \chi_{4}^{2}\\
+\Pr(Y\leq 7.78) &= \Pr(Z_{1}^{2}+Z_{2}^{2}+Z_{3}^{2}+Z_{4}^{2}\leq 7.78) \\
+&=0.90\\
+\end{align*}
+
+\paragraph{(b)}
+\begin{align*}
+Y \sim \chi_{4}^{10}\\
+\Pr(Y> 18.31) &= 1- \Pr(Y \leq 18.31)\\
+&=1- \Pr \left(\sum_{i=1}^{10}Z_{i}^{2} \leq 18.31 \right)  \\
+&=1-0.95\\
+&=0.05\\
+\end{align*}
+
+\paragraph{(c)}
+\begin{align*}
+Y \sim F_{10, \infty}\\
+\Pr(Y> 1.83) &= 1- \Pr(Y \leq 1.83)\\
+&=1 - 0.95\\
+&=0.05\\
+\end{align*}
+
+\paragraph{d)}
+\begin{center}
+The $F_{m,\infty}$ is the distribution of the $\chi_m^2$ random variable divided by m.
+\end{center}
+
+\paragraph{(e)}
+\begin{align*}
+Y \sim \chi_{1}^{2}\\
+\Pr(Y\leq 1.0) &= \Pr(Z_{1}^{2}\leq 1.0) \\
+\Pr(Y\leq 1.0) &= \Pr\left(-1.0 \leq \sqrt{Z_{1}^{2}}\leq 1.0\right)\\
+&=\Pr(Z \leq 1.0) - \Pr(Z \leq -1.0)\\
+&=\Pr(Z \leq 1.0) - \Pr(Z > 1.0)\\
+&=\Pr(Z \leq 1.0) -\left(1- \Pr(Z \leq 1.0) \right)\\
+&=2(0.84134) -1\\
+&=0.68268\\
+\end{align*}
+
+
+\section*{Problem 2.14}
+
+\begin{align*}
+\overline{Y} \sim \mathcal{N}\left(\mu_Y, \frac{\sigma_{Y}^2}{n}  \right)\\
+\overline{Y} \sim \mathcal{N}\left(100, \frac{43}{n}  \right)\\
+\end{align*}
+\paragraph{(a)}
+\begin{align*}
+\overline{Y} \sim \mathcal{N}\left(100, \frac{43}{100}\right), n\geq 30\\
+\Pr(\overline{Y} \leq 101) &= \Pr \left(Z\leq\frac{101-100}{\sqrt{\frac{43}{100}}}\right)\\
+&= \Pr \left(Z\leq 1.52\right)\\
+&= 0.93574
+\end{align*}
+
+\paragraph{(b)}
+\begin{align*}
+\overline{Y} \sim \mathcal{N}\left(100, \frac{43}{165}\right), n\geq 30\\
+\Pr(\overline{Y} > 98) &= 1 - \Pr \left(Z\leq\frac{98-100}{\sqrt{\frac{43}{165}}}\right)\\
+&= 1 - \Pr \left(Z\leq\frac{98-100}{\sqrt{\frac{43}{165}}}\right)\\
+&= 1 - \Pr \left(Z\leq -3.92\right)\\
+&= 1 - \Pr \left(Z > 3.92\right)\\
+&= 1 - (1 - \Pr \left(Z \leq 3.92)\right)\\
+&=\Pr \left(Z \leq 3.92\right)\\
+&=0.99996
+\end{align*}
+
+\paragraph{(c)}
+\begin{align*}
+\overline{Y} \sim \mathcal{N}\left(100, \frac{43}{64}\right), n\geq 30\\
+\Pr(101\leq\overline{Y} \leq 103) &= \Pr \left(Z\leq\frac{103-100}{\sqrt{\frac{43}{64}}}\right) - \Pr \left(Z\leq\frac{101-100}{\sqrt{\frac{43}{64}}}\right)\\
+&= \Pr \left(Z\leq 3.66\right) - \Pr \left(Z\leq 1.22\right)\\
+&=0.99987-0.88877\\
+&=0.1111\\
+\end{align*}
+
+
+\section*{Problem 2.23}
+$E[Y|X](x) = E[Y|X=x]$\\
+$Corr(X,Y) = 0$\\
+$X\sim \mathcal{N}(1,0)$\\
+$Z\sim \mathcal{N}(1,0)$\\
+$Y = X^2 + Z$\\
+\paragraph{(a)}
+\begin{align*}
+E[Y]&= E[X^2 + Z]\\
+E\left[E[Y|X]\right] &= E[X^2] + E[Z]\\
+E\left[E[Y|X]\right] &= E[X^2] + 1\\
+\end{align*}
+\begin{center}
+	Hence,
+\end{center}
+
+\begin{align*}
+E[Y|X] &= X^2\\
+\end{align*}
+
+\paragraph{(b)}
+\begin{align*}
+\mu_{Y} &= E[Y]\\
+& = E\left[E[Y|X]\right]\\
+& = E[X^2]\\
+\end{align*}
+\begin{center}
+recall,
+\end{center}
+\begin{align*}
+Var(X) &= E[X^2] - \left(E[X]\right)^2\\
+(\sigma_x)^2 &= E[X^2] - \left(1\right)^2\\
+0 & = E[X^2] - \left(1\right)^2\\
+E[X^2] = 1
+\end{align*}
+\begin{center}
+Hence,
+\end{center}
+\begin{align*}
+\mu_{Y} &= 1
+\end{align*}
+
+
+\paragraph{(c)}
+\begin{align*}
+Cov(X,Y) &= E\left[ (X- E[X])(Y-E[Y]) \right]\\
+&= E\left[ (XY- XE[Y] -YE[X] + E[X]E[Y]) \right]\\
+&= E\left[ XY-XE[Y] -Y + E[Y] \right]\\
+&= E\left[ XY-X -Y + 1 \right]\\
+&= E[XY] -E[X]-E[Y] +1\\
+&= E[XY] -1- 1 +1\\
+0&= E[XY] -1\\
+1&= E[XY]\\
+\end{align*}
+
+\paragraph{(d)}
+\begin{align*}
+\rho_{XY} = Corr(X,Y) &= \frac{Cov(X,Y)}{\sigma_x \sigma_{Y}} \\
+0 &= \frac{Cov(X,Y)}{\sigma_x \sigma_{Y}} \\
+0 &= Cov(X,Y)\\
+\end{align*}
+
+\end{document}
